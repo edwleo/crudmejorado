@@ -1,0 +1,44 @@
+<!-- views/edit.ejs -->
+<%- include('partials/header') %>
+
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <div class="card">
+      <div class="card-header">
+        <h2>Editar Vehículo</h2>
+      </div>
+      <div class="card-body">
+        <form action="/edit/<%= vehiculo.id %>" method="POST">
+          <div class="mb-3">
+            <label for="tipo" class="form-label">Tipo de Vehículo</label>
+            <input type="text" class="form-control" id="tipo" name="tipo" value="<%= vehiculo.tipo %>">
+          </div>
+          
+          <div class="mb-3">
+            <label for="marca" class="form-label">Marca</label>
+            <select name="marca" id="marca" class="form-select">
+              <option value="">Seleccione</option>
+              <option value="Kia" <%= vehiculo.marca == 'Kia' ? 'selected' : '' %>>Kia</option>
+              <option value="Toyota" <%= vehiculo.marca == 'Toyota' ? 'selected' : '' %>>Toyota</option>
+              <option value="Nissan" <%= vehiculo.marca == 'Nissan' ? 'selected' : '' %>>Nissan</option>
+              <option value="Hyundai" <%= vehiculo.marca == 'Hyundai' ? 'selected' : '' %>>Hyundai</option>
+              <option value="Javal" <%= vehiculo.marca == 'Javal' ? 'selected' : '' %>>Javal</option>
+            </select>
+          </div>
+          
+          <div class="mb-3">
+            <label for="color" class="form-label">Color</label>
+            <input type="text" class="form-control form-control-color" id="color" name="color" value="<%= vehiculo.color %>" required>
+          </div>
+          
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="/" class="btn btn-secondary me-md-2">Cancelar</a>
+            <button type="submit" class="btn btn-success">Actualizar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
