@@ -1,0 +1,48 @@
+<!-- views/index.ejs -->
+<%- include('partials/header') %>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h2>Lista de Vehículos</h2>
+        <a href="/create" class="btn btn-primary">Agregar Vehículo</a>
+      </div>
+      <div class="card-body">
+        <% if (vehiculos.length > 0) { %>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tipo</th>
+                <th>Marca</th>
+                <th>Color</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% vehiculos.forEach(vehiculo => { %>
+                <tr>
+                  <td><%= vehiculo.id %></td>
+                  <td><%= vehiculo.tipo %></td>
+                  <td><%= vehiculo.marca %></td>
+                  <td><%= vehiculo.color %></td>
+                  <td>
+                    <a href="/edit/<%= vehiculo.id %>" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="/delete/<%= vehiculo.id %>" class="btn btn-sm btn-danger" onclick="return confirm('¿Está seguro que desea eliminar este vehículo?')">Eliminar</a>
+                  </td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        <% } else { %>
+          <div class="alert alert-info">
+            No hay vehículos registrados. ¡Agrega uno nuevo!
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

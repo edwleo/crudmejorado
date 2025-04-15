@@ -1,0 +1,44 @@
+<!-- views/create.ejs -->
+<%- include('partials/header') %>
+
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <div class="card">
+      <div class="card-header">
+        <h2>Agregar Nuevo Vehículo</h2>
+      </div>
+      <div class="card-body">
+        <form action="/create" method="POST">
+          <div class="mb-3">
+            <label for="tipo" class="form-label">Tipo de Vehículo</label>
+            <select class="form-select" id="tipo" name="tipo" required>
+              <option value="" selected disabled>Seleccione un tipo</option>
+              <option value="Automóvil">Automóvil</option>
+              <option value="Motocicleta">Motocicleta</option>
+              <option value="Camioneta">Camioneta</option>
+              <option value="Camión">Camión</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+          
+          <div class="mb-3">
+            <label for="marca" class="form-label">Marca</label>
+            <input type="text" class="form-control" id="marca" name="marca" required>
+          </div>
+          
+          <div class="mb-3">
+            <label for="color" class="form-label">Color</label>
+            <input type="text" class="form-control" id="color" name="color" required>
+          </div>
+          
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="/" class="btn btn-secondary me-md-2">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

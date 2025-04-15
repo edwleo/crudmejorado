@@ -11,7 +11,6 @@ router.get('/', async (req, res) => {
       title: 'Lista de vehículos',
       message: req.query.message || null
     });
-   res.json(vehiculos);
   }
   catch(error){
     console.error('Error al obtener vehículos: ', error);
@@ -19,6 +18,27 @@ router.get('/', async (req, res) => {
       vehiculos: [],
       title: 'Lista de vehículos',
       message: 'Error al cargar los vehículos'
+    });
+  }
+});
+
+//Mostrar formulario para crear vehículo
+router.get('/create', (req, res) => {
+  res.render('create', { title: 'Agregar vehículo' })
+});
+
+//Crear nuevo vehículo (INSERT INTO...)
+router.post('/create', async (req, res) => {
+  try{
+    const {tipo, marca, color} = req.body;
+    await db.query(`INSERT INTO vehiculos (tipo, marca, color) VALUES (?,?,?)`, [tipo, marca, color]);
+    res.redirect('/?message=Vehículo registrado correctamente');
+  }
+  catch(error){
+    console.error(`Error al agregar vehículo: ${error}`);
+    res.status(500).render('create', {
+      title: 'Agregar vehículo',
+      message: 'Error al agregar vehículo'
     });
   }
 });
