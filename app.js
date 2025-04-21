@@ -1,7 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+
+//rutas
 const vehiculosRoutes = require('./routes/vehiculos');
+const marcasRoutes = require('./routes/marcas');
 
 //Iniciar la aplicación
 const app = express();
@@ -18,6 +21,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 //Configurar rutas
 app.use('/', vehiculosRoutes);
+app.use('/api/marcas', marcasRoutes);
 
 //Iniciar servidor
 app.listen(PORT, () => {

@@ -23,7 +23,12 @@
           
           <div class="mb-3">
             <label for="marca" class="form-label">Marca</label>
-            <input type="text" class="form-control" id="marca" name="marca" required>
+            <select name="marca" id="marca" class="form-select">
+              <option value="" selected disabled>Seleccione</option>
+              <% marcas.forEach(marca => { %>
+               <option value="<%= marca.id %>"><%= marca.marca %></option>
+              <% }) %>
+            </select>
           </div>
           
           <div class="mb-3">

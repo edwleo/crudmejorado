@@ -5,7 +5,16 @@ const db = require('../config/database');
 //Obtener todos los vehículos
 router.get('/', async (req, res) => {
   try{
-    const [vehiculos] = await db.query(`SELECT * FROM vehiculos`);
+    const query = `
+    SELECT
+      V.id,
+        V.tipo,
+        M.marca,
+        V.color
+      FROM vehiculos V 
+        INNER JOIN marcas M ON M.id = V.idmarca;
+    `;
+    const [vehiculos] = await db.query(query);
     res.render('index', {
       vehiculos,
       title: 'Lista de vehículos',
@@ -23,16 +32,21 @@ router.get('/', async (req, res) => {
 });
 
 //Mostrar formulario para crear vehículo
-router.get('/create', (req, res) => {
-  res.render('create', { title: 'Agregar vehículo' })
+router.get('/create', async (req, res) => {
+  try{
+    const [marcas] = await db.query('SELECT * FROM marcas');
+    res.render('create', { title: 'Agregar vehículo', marcas: marcas })
+  }catch(error){
+    console.error(error);
+  }
 });
 
 //Crear nuevo vehículo (INSERT INTO...)
 router.post('/create', async (req, res) => {
   try{
     const {tipo, marca, color} = req.body;
-    await db.query(`INSERT INTO vehiculos (tipo, marca, color) VALUES (?,?,?)`, [tipo, marca, color]);
-    res.redirect('/?message=Vehículo registrado correctamente');
+    await db.query(`INSERT INTO vehiculos (tipo, idmarca, color) VALUES (?,?,?)`, [tipo, marca, color]);
+    res.redirect('/');
   }
   catch(error){
     console.error(`Error al agregar vehículo: ${error}`);

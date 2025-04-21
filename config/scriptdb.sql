@@ -27,13 +27,24 @@ CREATE TABLE vehiculos
 )ENGINE = INNODB;
 
 INSERT INTO marcas (marca) VALUES 
-	(''),
-    (''),
-    (''),
-    (''),
-    (''),
-    ('');
+	('Kia'),
+    ('Hyundai'),
+    ('Nissan'),
+    ('JAC'),
+    ('Chevrolet'),
+    ('Toyota');
 
-INSERT INTO vehiculos (tipo, marca, color) VALUES
-	('Hatchback', 'Kia', 'Blanco'),
-    ('Camioneta','Javal','Negro');
+INSERT INTO vehiculos (tipo, idmarca, color) VALUES
+	('Hatchback', 1, 'Blanco'),
+    ('Camioneta', 2, 'Negro');
+
+SELECT * FROM vehiculos;
+SELECT
+	V.id,
+    V.tipo,
+    M.marca,
+    V.color
+	FROM vehiculos V 
+    INNER JOIN marcas M ON M.id = V.idmarca;
+
+-- Generando una excepción temporal
