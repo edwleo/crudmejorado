@@ -46,7 +46,7 @@ router.post('/create', async (req, res) => {
   try{
     const {tipo, marca, color} = req.body;
     await db.query(`INSERT INTO vehiculos (tipo, idmarca, color) VALUES (?,?,?)`, [tipo, marca, color]);
-    res.redirect('/');
+    res.redirect('/?message=Vehículo registrado correctamente');
   }
   catch(error){
     console.error(`Error al agregar vehículo: ${error}`);
