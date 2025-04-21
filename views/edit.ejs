@@ -1,44 +1,60 @@
-<!-- views/edit.ejs -->
+<!-- views/create.ejs -->
 <%- include('partials/header') %>
 
-<div class="row">
-  <div class="col-md-8 offset-md-2">
-    <div class="card">
-      <div class="card-header">
-        <h2>Editar Vehículo</h2>
-      </div>
-      <div class="card-body">
-        <form action="/edit/<%= vehiculo.id %>" method="POST">
-          <div class="mb-3">
-            <label for="tipo" class="form-label">Tipo de Vehículo</label>
-            <input type="text" class="form-control" id="tipo" name="tipo" value="<%= vehiculo.tipo %>">
-          </div>
-          
-          <div class="mb-3">
-            <label for="marca" class="form-label">Marca</label>
-            <select name="marca" id="marca" class="form-select">
-              <option value="">Seleccione</option>
-              <option value="Kia" <%= vehiculo.marca == 'Kia' ? 'selected' : '' %>>Kia</option>
-              <option value="Toyota" <%= vehiculo.marca == 'Toyota' ? 'selected' : '' %>>Toyota</option>
-              <option value="Nissan" <%= vehiculo.marca == 'Nissan' ? 'selected' : '' %>>Nissan</option>
-              <option value="Hyundai" <%= vehiculo.marca == 'Hyundai' ? 'selected' : '' %>>Hyundai</option>
-              <option value="Javal" <%= vehiculo.marca == 'Javal' ? 'selected' : '' %>>Javal</option>
-            </select>
-          </div>
-          
-          <div class="mb-3">
-            <label for="color" class="form-label">Color</label>
-            <input type="text" class="form-control form-control-color" id="color" name="color" value="<%= vehiculo.color %>" required>
-          </div>
-          
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a href="/" class="btn btn-secondary me-md-2">Cancelar</a>
-            <button type="submit" class="btn btn-success">Actualizar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+  <div class="row">
+    <div class="col-md-12">
 
-<%- include('partials/footer') %>
+      <form action="/edit/<%= vehiculo.id %>" autocomplete="off" method="POST">
+        <div class="card">
+          <div class="card-header">
+            <strong>Editar vehículo</strong>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <div class="form-floating">
+                <select class="form-select" id="tipo" name="tipo" required>
+                  <option value="" selected disabled>Seleccione un tipo</option>
+                  <option value="Automóvil" <%= vehiculo.tipo == 'Automóvil' ? 'selected' : '' %> >Automóvil</option>
+                  <option value="Motocicleta" <%= vehiculo.tipo == 'Motocicleta' ? 'selected' : '' %> >Motocicleta</option>
+                  <option value="Camioneta" <%= vehiculo.tipo == 'Camioneta' ? 'selected' : '' %> >Camioneta</option>
+                  <option value="Camión" <%= vehiculo.tipo == 'Camión' ? 'selected' : '' %> >Camión</option>
+                  <option value="Otro" <%= vehiculo.tipo == 'Otro' ? 'selected' : '' %> >Otro</option>
+                </select>
+                <label for="tipo" class="form-label">Tipo de Vehículo</label>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="form-floating">
+                <select name="marca" id="marca" class="form-select">
+                  <option value="" disabled>Seleccione</option>
+                  <% marcas.forEach(marca=> { %>
+                    <option value="<%= marca.id %>" <%= vehiculo.idmarca == marca.id ? 'selected' : '' %> >
+                      <%= marca.marca %>
+                    </option>
+                    <% }) %>
+                </select>
+                <label for="marca" class="form-label">Marca</label>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="color" name="color" value="<%= vehiculo.color %>" required>
+                <label for="color" class="form-label">Color</label>
+              </div>
+            </div>
+          </div> <!-- ./card-body -->
+
+          <div class="card-footer text-end">
+            <a href="/" class="btn btn-sm btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-sm btn-primary">Actualizar</button>
+          </div>
+
+        </div> <!-- ./card -->
+      </form>
+
+    </div> <!-- ./col-md-12 -->
+  </div> <!-- ./row -->
+
+  <%- include('partials/footer') %>

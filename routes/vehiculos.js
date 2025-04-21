@@ -60,15 +60,17 @@ router.post('/create', async (req, res) => {
 //Mostrar formulario para editar vehículo
 router.get('/edit/:id', async (req, res) => {
   try{
-    const [vehiculos] = await db.query(`SELECT * FROM vehiculos WHERE id = ?`, [req.params.id]);
+    const [vehiculo] = await db.query(`SELECT * FROM vehiculos WHERE id = ?`, [req.params.id]);
+    const [marcas] = await db.query('SELECT * FROM marcas');
 
-    if (vehiculos.length == 0){
+    if (vehiculo.length == 0){
       return res.redirect(`/?message=Vehículo no encontrado`);
     }
 
     res.render(`edit`, {
-      vehiculo: vehiculos[0],
-      title: 'Editar vehículo'
+      vehiculo: vehiculo[0],
+      title: 'Editar vehículo',
+      marcas: marcas
     });
   }
   catch(error){
@@ -81,7 +83,7 @@ router.get('/edit/:id', async (req, res) => {
 router.post(`/edit/:id`, async(req, res) => {
   try{
     const {tipo, marca, color} = req.body;
-    await db.query(`UPDATE vehiculos SET tipo = ?, marca = ?, color = ? WHERE id = ?`, [tipo, marca, color, req.params.id]);
+    await db.query(`UPDATE vehiculos SET tipo = ?, idmarca = ?, color = ? WHERE id = ?`, [tipo, marca, color, req.params.id]);
     res.redirect('/?message=Vehículo actualizado correctamente')
   }
   catch(error){
@@ -100,6 +102,5 @@ router.get('/delete/:id', async(req, res) => {
     res.status(500).redirect('/?message=Error al eliminar el vehículo');
   }
 });
-
 
 module.exports = router;
