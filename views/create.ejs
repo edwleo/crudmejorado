@@ -1,49 +1,60 @@
 <!-- views/create.ejs -->
 <%- include('partials/header') %>
 
-<div class="row">
-  <div class="col-md-8 offset-md-2">
-    <div class="card">
-      <div class="card-header">
-        <h2>Agregar Nuevo Vehículo</h2>
-      </div>
-      <div class="card-body">
-        <form action="/create" method="POST">
-          <div class="mb-3">
-            <label for="tipo" class="form-label">Tipo de Vehículo</label>
-            <select class="form-select" id="tipo" name="tipo" required>
-              <option value="" selected disabled>Seleccione un tipo</option>
-              <option value="Automóvil">Automóvil</option>
-              <option value="Motocicleta">Motocicleta</option>
-              <option value="Camioneta">Camioneta</option>
-              <option value="Camión">Camión</option>
-              <option value="Otro">Otro</option>
-            </select>
-          </div>
-          
-          <div class="mb-3">
-            <label for="marca" class="form-label">Marca</label>
-            <select name="marca" id="marca" class="form-select">
-              <option value="" selected disabled>Seleccione</option>
-              <% marcas.forEach(marca => { %>
-               <option value="<%= marca.id %>"><%= marca.marca %></option>
-              <% }) %>
-            </select>
-          </div>
-          
-          <div class="mb-3">
-            <label for="color" class="form-label">Color</label>
-            <input type="text" class="form-control" id="color" name="color" required>
-          </div>
-          
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a href="/" class="btn btn-secondary me-md-2">Cancelar</a>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+  <div class="row">
+    <div class="col-md-12">
 
-<%- include('partials/footer') %>
+      <form action="/create" autocomplete="off" method="POST">
+        <div class="card">
+          <div class="card-header">
+            <strong>Agregar Nuevo Vehículo</strong>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <div class="form-floating">
+                <select class="form-select" id="tipo" name="tipo" required>
+                  <option value="" selected disabled>Seleccione un tipo</option>
+                  <option value="Automóvil">Automóvil</option>
+                  <option value="Motocicleta">Motocicleta</option>
+                  <option value="Camioneta">Camioneta</option>
+                  <option value="Camión">Camión</option>
+                  <option value="Otro">Otro</option>
+                </select>
+                <label for="tipo" class="form-label">Tipo de Vehículo</label>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="form-floating">
+                <select name="marca" id="marca" class="form-select">
+                  <option value="" selected disabled>Seleccione</option>
+                  <% marcas.forEach(marca=> { %>
+                    <option value="<%= marca.id %>">
+                      <%= marca.marca %>
+                    </option>
+                    <% }) %>
+                </select>
+                <label for="marca" class="form-label">Marca</label>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="color" name="color" required>
+                <label for="color" class="form-label">Color</label>
+              </div>
+            </div>
+          </div> <!-- ./card-body -->
+
+          <div class="card-footer text-end">
+            <a href="/" class="btn btn-sm btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+          </div>
+
+        </div> <!-- ./card -->
+      </form>
+
+    </div> <!-- ./col-md-12 -->
+  </div> <!-- ./row -->
+
+  <%- include('partials/footer') %>
