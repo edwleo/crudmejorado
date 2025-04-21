@@ -5,12 +5,19 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h2>Lista de Vehículos</h2>
-        <a href="/create" class="btn btn-primary">Agregar Vehículo</a>
+        <strong>Lista de Vehículos</strong>
+        <a href="/create" class="btn btn-sm btn-primary">Agregar Vehículo</a>
       </div>
       <div class="card-body">
         <% if (vehiculos.length > 0) { %>
           <table class="table table-striped">
+            <colgroup>
+              <col style="width: 10%;">
+              <col style="width: 25%;">
+              <col style="width: 25%;">
+              <col style="width: 25%;">
+              <col style="width: 15%;">
+            </colgroup>
             <thead>
               <tr>
                 <th>ID</th>
